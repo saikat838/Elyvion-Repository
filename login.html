@@ -7,6 +7,7 @@
 <title>Elyvion | Login</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -119,6 +120,7 @@ input::placeholder{
     color:#45e6a8;
     text-decoration:none;
     font-size:13px;
+    cursor:pointer;
 }
 
 .login-btn{
@@ -139,16 +141,34 @@ input::placeholder{
     box-shadow:0 10px 30px rgba(69,230,168,.22);
 }
 
+.login-btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+    transform:none;
+}
+
 .message{
     display:none;
     padding:12px;
     margin-bottom:18px;
     border-radius:8px;
+    text-align:center;
+    font-size:13px;
+    line-height:1.5;
+}
+
+.message.success{
+    display:block;
     background:rgba(69,230,168,.08);
     border:1px solid rgba(69,230,168,.2);
     color:#45e6a8;
-    text-align:center;
-    font-size:13px;
+}
+
+.message.error{
+    display:block;
+    background:rgba(255,70,70,.08);
+    border:1px solid rgba(255,70,70,.2);
+    color:#ff8585;
 }
 
 .register-text{
@@ -190,7 +210,9 @@ input::placeholder{
     .logo{
         font-size:28px;
     }
+
 }
+
 </style>
 </head>
 
@@ -209,6 +231,7 @@ input::placeholder{
     </div>
 
     <div class="message" id="message"></div>
+
 
     <form id="loginForm">
 
@@ -252,7 +275,9 @@ input::placeholder{
                 <span
                     class="show-password"
                     id="togglePassword">
+
                     Show
+
                 </span>
 
             </div>
@@ -264,24 +289,33 @@ input::placeholder{
 
         <div class="login-options">
 
-            <a href="#" class="forgot" id="forgotPassword">
+            <a
+                href="#"
+                class="forgot"
+                id="forgotPassword">
+
                 Forgot Password?
+
             </a>
 
         </div>
 
 
-        <!-- LOGIN -->
+        <!-- LOGIN BUTTON -->
 
         <button
             type="submit"
             class="login-btn"
             id="loginBtn">
+
             Login
+
         </button>
 
     </form>
 
+
+    <!-- REGISTER -->
 
     <div class="register-text">
 
@@ -294,8 +328,14 @@ input::placeholder{
     </div>
 
 
-    <a href="index.html" class="home-link">
+    <!-- HOME -->
+
+    <a
+        href="index.html"
+        class="home-link">
+
         ← Back to Home
+
     </a>
 
 </div>
@@ -303,37 +343,72 @@ input::placeholder{
 </div>
 
 
-<script>
+<script type="module">
 
-/* SHOW / HIDE PASSWORD */
+/* =========================================
+   FIREBASE IMPORT
+========================================= */
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+    getAuth,
+    signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+/* =========================================
+   FIREBASE CONFIG
+========================================= */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyCv975i2mxLOzMEITVdXPeJfUV9C_0Lqeo",
+
+    authDomain:
+        "elyvion.firebaseapp.com",
+
+    projectId:
+        "elyvion",
+
+    storageBucket:
+        "elyvion.firebasestorage.app",
+
+    messagingSenderId:
+        "540761433081",
+
+    appId:
+        "1:540761433081:web:7bcda228461f1d75b41328",
+
+    measurementId:
+        "G-RDS7DXQBKR"
+
+};
+
+
+/* =========================================
+   INITIALIZE FIREBASE
+========================================= */
+
+const app =
+    initializeApp(firebaseConfig);
+
+const auth =
+    getAuth(app);
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
 
 const passwordInput =
     document.getElementById("password");
 
 const togglePassword =
     document.getElementById("togglePassword");
-
-
-togglePassword.addEventListener("click",function(){
-
-    if(passwordInput.type === "password"){
-
-        passwordInput.type = "text";
-
-        togglePassword.innerText = "Hide";
-
-    }else{
-
-        passwordInput.type = "password";
-
-        togglePassword.innerText = "Show";
-
-    }
-
-});
-
-
-/* LOGIN FORM */
 
 const loginForm =
     document.getElementById("loginForm");
@@ -344,79 +419,177 @@ const message =
 const loginBtn =
     document.getElementById("loginBtn");
 
-
-loginForm.addEventListener("submit",function(e){
-
-    e.preventDefault();
-
-    const email =
-        document.getElementById("email").value.trim();
-
-    const password =
-        document.getElementById("password").value;
+const forgotPassword =
+    document.getElementById("forgotPassword");
 
 
-    if(password.length < 6){
+/* =========================================
+   SHOW / HIDE PASSWORD
+========================================= */
 
-        showMessage(
-            "Password must contain at least 6 characters."
-        );
+togglePassword.addEventListener(
+    "click",
+    function(){
 
-        return;
+        if(passwordInput.type === "password"){
+
+            passwordInput.type = "text";
+
+            togglePassword.innerText =
+                "Hide";
+
+        }else{
+
+            passwordInput.type = "password";
+
+            togglePassword.innerText =
+                "Show";
+
+        }
+
     }
+);
 
 
-    /*
-       TEMPORARY FRONTEND VERSION
+/* =========================================
+   LOGIN
+========================================= */
 
-       Firebase Authentication will be connected
-       after the Login + Register UI is completed.
-    */
+loginForm.addEventListener(
+    "submit",
+    async function(e){
 
-
-    console.log("Login:",{
-        email:email
-    });
+        e.preventDefault();
 
 
-    loginBtn.innerText = "Logging in...";
+        const email =
+            document
+            .getElementById("email")
+            .value
+            .trim();
 
 
-    setTimeout(function(){
+        const password =
+            passwordInput.value;
 
-        loginBtn.innerText = "Login";
+
+        /* BASIC PASSWORD CHECK */
+
+        if(password.length < 6){
+
+            showMessage(
+                "Please enter a valid login password.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /* LOGIN BUTTON */
+
+        loginBtn.disabled = true;
+
+        loginBtn.innerText =
+            "Logging in...";
+
+
+        try{
+
+            /* FIREBASE LOGIN */
+
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+            /* SUCCESS */
+
+            showMessage(
+                "Login successful. Redirecting...",
+                "success"
+            );
+
+
+            /* OPEN DASHBOARD */
+
+            setTimeout(
+                function(){
+
+                    window.location.href =
+                        "dashboard.html";
+
+                },
+                800
+            );
+
+
+        }catch(error){
+
+            console.error(error);
+
+
+            /*
+            General error message.
+            It does not reveal whether
+            the email or password is wrong.
+            */
+
+            showMessage(
+                "Login failed. Please check your login details and try again.",
+                "error"
+            );
+
+
+            loginBtn.disabled =
+                false;
+
+            loginBtn.innerText =
+                "Login";
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   FORGOT PASSWORD
+========================================= */
+
+forgotPassword.addEventListener(
+    "click",
+    function(e){
+
+        e.preventDefault();
+
 
         showMessage(
-            "Login system is ready. Firebase authentication will be connected next."
+            "Please contact Customer Service to reset your password.",
+            "success"
         );
 
-    },700);
-
-});
-
-
-/* FORGOT PASSWORD */
-
-document
-.getElementById("forgotPassword")
-.addEventListener("click",function(e){
-
-    e.preventDefault();
-
-    showMessage(
-        "Password reset will be available after Firebase is connected."
-    );
-
-});
+    }
+);
 
 
-/* MESSAGE */
+/* =========================================
+   MESSAGE FUNCTION
+========================================= */
 
-function showMessage(text){
+function showMessage(
+    text,
+    type
+){
 
-    message.innerText = text;
+    message.innerText =
+        text;
 
-    message.style.display = "block";
+    message.className =
+        "message " + type;
 
 }
 
