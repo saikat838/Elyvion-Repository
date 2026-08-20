@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Elyvion | Dashboard</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#070b12;
+    color:#fff;
+    min-height:100vh;
+}
+
+/* HEADER */
+
+.header{
+    height:70px;
+    background:#0b1119;
+    border-bottom:1px solid rgba(255,255,255,.07);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 30px;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-size:27px;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+.logo span{
+    color:#45e6a8;
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.status{
+    color:#45e6a8;
+    font-size:13px;
+}
+
+.user-circle{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:#45e6a8;
+    color:#071019;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+}
+
+/* LAYOUT */
+
+.layout{
+    display:flex;
+    min-height:calc(100vh - 70px);
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:245px;
+    background:#0b1119;
+    border-right:1px solid rgba(255,255,255,.07);
+    padding:25px 15px;
+}
+
+.sidebar-title{
+    color:#596672;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    margin:5px 12px 12px;
+}
+
+.nav-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:#8e9aa6;
+    text-decoration:none;
+    padding:13px 14px;
+    border-radius:9px;
+    margin-bottom:5px;
+    font-size:14px;
+    transition:.2s;
+}
+
+.nav-item:hover,
+.nav-item.active{
+    background:rgba(69,230,168,.09);
+    color:#45e6a8;
+}
+
+.logout{
+    margin-top:25px;
+    border-top:1px solid rgba(255,255,255,.07);
+    padding-top:20px;
+}
+
+/* MAIN */
+
+.main{
+    flex:1;
+    padding:35px;
+    max-width:1300px;
+    margin:auto;
+    width:100%;
+}
+
+.welcome{
+    margin-bottom:28px;
+}
+
+.welcome h1{
+    font-size:29px;
+    margin-bottom:6px;
+}
+
+.welcome p{
+    color:#7f8b97;
+    font-size:14px;
+}
+
+/* CARDS */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-bottom:30px;
+}
+
+.card{
+    background:#0d141d;
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:15px;
+    padding:23px;
+}
+
+.card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:14px;
+}
+
+.card-title{
+    color:#7f8b97;
+    font-size:13px;
+}
+
+.card-icon{
+    width:35px;
+    height:35px;
+    border-radius:9px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(69,230,168,.08);
+    color:#45e6a8;
+}
+
+.card-value{
+    font-size:26px;
+    font-weight:800;
+}
+
+.card-note{
+    color:#66727e;
+    font-size:12px;
+    margin-top:6px;
+}
+
+/* SECTION */
+
+.section{
+    background:#0d141d;
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:15px;
+    padding:25px;
+    margin-bottom:25px;
+}
+
+.section-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:23px;
+}
+
+.section-header h2{
+    font-size:19px;
+}
+
+.section-header span{
+    color:#6f7b87;
+    font-size:12px;
+}
+
+/* SETS */
+
+.sets{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.set{
+    background:#080d14;
+    border:1px solid #202b36;
+    border-radius:13px;
+    padding:20px;
+}
+
+.set.completed{
+    border-color:rgba(69,230,168,.35);
+}
+
+.set.locked{
+    opacity:.55;
+}
+
+.set-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.set-name{
+    font-weight:700;
+}
+
+.set-status{
+    font-size:12px;
+    color:#7e8a96;
+}
+
+.set.completed .set-status{
+    color:#45e6a8;
+}
+
+.progress-text{
+    display:flex;
+    justify-content:space-between;
+    color:#8995a1;
+    font-size:13px;
+    margin-bottom:9px;
+}
+
+.progress-bar{
+    width:100%;
+    height:7px;
+    background:#18212b;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    height:100%;
+    background:#45e6a8;
+    border-radius:10px;
+}
+
+.set-footer{
+    margin-top:18px;
+}
+
+.service-btn{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:7px;
+    background:#45e6a8;
+    color:#071019;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.disabled-btn{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:7px;
+    background:#18212b;
+    color:#596672;
+    cursor:not-allowed;
+}
+
+/* SUMMARY */
+
+.summary{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.summary-box{
+    background:#080d14;
+    border-radius:12px;
+    padding:20px;
+}
+
+.summary-box h3{
+    font-size:15px;
+    margin-bottom:15px;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    padding:10px 0;
+    border-bottom:1px solid rgba(255,255,255,.05);
+    color:#8995a1;
+    font-size:13px;
+}
+
+.summary-row:last-child{
+    border-bottom:none;
+}
+
+.summary-row strong{
+    color:#fff;
+}
+
+/* TABLE */
+
+.table-wrap{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:550px;
+}
+
+th,
+td{
+    padding:14px 10px;
+    border-bottom:1px solid rgba(255,255,255,.06);
+    text-align:left;
+    font-size:13px;
+}
+
+th{
+    color:#66727e;
+    font-weight:500;
+}
+
+td{
+    color:#b9c2ca;
+}
+
+.completed-text{
+    color:#45e6a8;
+}
+
+/* MOBILE */
+
+@media(max-width:1050px){
+
+    .cards{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .sets{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:750px){
+
+    .sidebar{
+        display:none;
+    }
+
+    .main{
+        padding:22px 15px;
+    }
+
+    .header{
+        padding:0 18px;
+    }
+
+    .status{
+        display:none;
+    }
+
+    .cards{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .card{
+        padding:17px;
+    }
+
+    .card-value{
+        font-size:21px;
+    }
+
+    .summary{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:480px){
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .welcome h1{
+        font-size:24px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header class="header">
+
+    <div class="logo">
+        Ely<span>vion</span>
+    </div>
+
+    <div class="header-right">
+
+        <div class="status">
+            ● Account Active
+        </div>
+
+        <div class="user-circle">
+            U
+        </div>
+
+    </div>
+
+</header>
+
+
+<div class="layout">
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+    <div class="sidebar-title">
+        Dashboard
+    </div>
+
+    <a href="dashboard.html"
+       class="nav-item active">
+        🏠 Dashboard
+    </a>
+
+    <a href="#tasks"
+       class="nav-item">
+        📋 Today's Tasks
+    </a>
+
+    <a href="#wallet"
+       class="nav-item">
+        💳 Wallet
+    </a>
+
+    <a href="#income"
+       class="nav-item">
+        📊 Income History
+    </a>
+
+    <a href="#referral"
+       class="nav-item">
+        🔗 Referral
+    </a>
+
+    <a href="#profile"
+       class="nav-item">
+        👤 Profile
+    </a>
+
+    <a href="#support"
+       class="nav-item">
+        🎧 Customer Service
+    </a>
+
+    <div class="logout">
+
+        <a href="index.html"
+           class="nav-item">
+            🚪 Logout
+        </a>
+
+    </div>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+
+<!-- WELCOME -->
+
+<div class="welcome">
+
+    <h1>
+        Welcome back 👋
+    </h1>
+
+    <p>
+        Here's an overview of your account and today's activity.
+    </p>
+
+</div>
+
+
+<!-- MAIN CARDS -->
+
+<div class="cards">
+
+
+    <!-- BALANCE -->
+
+    <div class="card">
+
+        <div class="card-top">
+
+            <div class="card-title">
+                Total Balance
+            </div>
+
+            <div class="card-icon">
+                €
+            </div>
+
+        </div>
+
+        <div class="card-value"
+             id="balance">
+            €0.00
+        </div>
+
+        <div class="card-note">
+            Available balance
+        </div>
+
+    </div>
+
+
+    <!-- TODAY INCOME -->
+
+    <div class="card">
+
+        <div class="card-top">
+
+            <div class="card-title">
+                Today's Income
+            </div>
+
+            <div class="card-icon">
+                ↗
+            </div>
+
+        </div>
+
+        <div class="card-value"
+             id="todayIncome">
+            €0.00
+        </div>
+
+        <div class="card-note">
+            Today's credited income
+        </div>
+
+    </div>
+
+
+    <!-- TASKS -->
+
+    <div class="card">
+
+        <div class="card-top">
+
+            <div class="card-title">
+                Tasks Completed
+            </div>
+
+            <div class="card-icon">
+                ✓
+            </div>
+
+        </div>
+
+        <div class="card-value">
+
+            <span id="completedTasks">
+                0
+            </span>
+
+            /
+            <span id="totalTasks">
+                90
+            </span>
+
+        </div>
+
+        <div class="card-note">
+            Today's progress
+        </div>
+
+    </div>
+
+
+    <!-- SETS -->
+
+    <div class="card">
+
+        <div class="card-top">
+
+            <div class="card-title">
+                Sets Completed
+            </div>
+
+            <div class="card-icon">
+                #
+            </div>
+
+        </div>
+
+        <div class="card-value">
+
+            <span id="completedSets">
+                0
+            </span>
+
+            / 3
+
+        </div>
+
+        <div class="card-note">
+            Today's sets
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- TASKS -->
+
+<section class="section" id="tasks">
+
+    <div class="section-header">
+
+        <h2>
+            Today's Tasks
+        </h2>
+
+        <span>
+            3 Sets · 90 Tasks
+        </span>
+
+    </div>
+
+
+    <div class="sets">
+
+
+        <!-- SET 1 -->
+
+        <div class="set">
+
+            <div class="set-head">
+
+                <div class="set-name">
+                    Set 1
+                </div>
+
+                <div class="set-status">
+                    Not Started
+                </div>
+
+            </div>
+
+            <div class="progress-text">
+
+                <span>
+                    Progress
+                </span>
+
+                <span>
+                    0 / 30
+                </span>
+
+            </div>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    style="width:0%">
+                </div>
+
+            </div>
+
+            <div class="set-footer">
+
+                <button
+                    class="disabled-btn"
+                    disabled>
+                    Complete Tasks First
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- SET 2 -->
+
+        <div class="set locked">
+
+            <div class="set-head">
+
+                <div class="set-name">
+                    Set 2
+                </div>
+
+                <div class="set-status">
+                    🔒 Locked
+                </div>
+
+            </div>
+
+            <div class="progress-text">
+
+                <span>
+                    Progress
+                </span>
+
+                <span>
+                    0 / 30
+                </span>
+
+            </div>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    style="width:0%">
+                </div>
+
+            </div>
+
+            <div class="set-footer">
+
+                <button
+                    class="disabled-btn"
+                    disabled>
+                    Complete Set 1 First
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- SET 3 -->
+
+        <div class="set locked">
+
+            <div class="set-head">
+
+                <div class="set-name">
+                    Set 3
+                </div>
+
+                <div class="set-status">
+                    🔒 Locked
+                </div>
+
+            </div>
+
+            <div class="progress-text">
+
+                <span>
+                    Progress
+                </span>
+
+                <span>
+                    0 / 30
+                </span>
+
+            </div>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    style="width:0%">
+                </div>
+
+            </div>
+
+            <div class="set-footer">
+
+                <button
+                    class="disabled-btn"
+                    disabled>
+                    Complete Set 2 First
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- WALLET -->
+
+<section class="section" id="wallet">
+
+    <div class="section-header">
+
+        <h2>
+            Wallet Overview
+        </h2>
+
+    </div>
+
+
+    <div class="summary">
+
+        <div class="summary-box">
+
+            <h3>
+                Balance Summary
+            </h3>
+
+            <div class="summary-row">
+                <span>Total Balance</span>
+                <strong>€0.00</strong>
+            </div>
+
+            <div class="summary-row">
+                <span>Today's Income</span>
+                <strong>€0.00</strong>
+            </div>
+
+            <div class="summary-row">
+                <span>Total Earned</span>
+                <strong>€0.00</strong>
+            </div>
+
+        </div>
+
+
+        <div class="summary-box">
+
+            <h3>
+                Withdrawal Summary
+            </h3>
+
+            <div class="summary-row">
+                <span>Total Withdrawn</span>
+                <strong>€0.00</strong>
+            </div>
+
+            <div class="summary-row">
+                <span>Pending</span>
+                <strong>€0.00</strong>
+            </div>
+
+            <div class="summary-row">
+                <span>Available</span>
+                <strong>€0.00</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- INCOME HISTORY -->
+
+<section class="section" id="income">
+
+    <div class="section-header">
+
+        <h2>
+            Income History
+        </h2>
+
+        <span>
+            Recent activity
+        </span>
+
+    </div>
+
+
+    <div class="table-wrap">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Date
+                    </th>
+
+                    <th>
+                        Activity
+                    </th>
+
+                    <th>
+                        Amount
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>
+                        —
+                    </td>
+
+                    <td>
+                        No activity yet
+                    </td>
+
+                    <td>
+                        €0.00
+                    </td>
+
+                    <td>
+                        —
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- REFERRAL -->
+
+<section class="section" id="referral">
+
+    <div class="section-header">
+
+        <h2>
+            Referral
+        </h2>
+
+    </div>
+
+
+    <div class="summary">
+
+        <div class="summary-box">
+
+            <h3>
+                Your Referral Code
+            </h3>
+
+            <div class="summary-row">
+
+                <span>
+                    Referral Code
+                </span>
+
+                <strong>
+                    —
+                </strong>
+
+            </div>
+
+            <div class="summary-row">
+
+                <span>
+                    Referrals
+                </span>
+
+                <strong>
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="summary-box">
+
+            <h3>
+                Referral Earnings
+            </h3>
+
+            <div class="summary-row">
+
+                <span>
+                    Total Referral Income
+                </span>
+
+                <strong>
+                    €0.00
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PROFILE -->
+
+<section class="section" id="profile">
+
+    <div class="section-header">
+
+        <h2>
+            Profile
+        </h2>
+
+    </div>
+
+
+    <div class="summary">
+
+        <div class="summary-box">
+
+            <div class="summary-row">
+
+                <span>
+                    Name
+                </span>
+
+                <strong>
+                    —
+                </strong>
+
+            </div>
+
+            <div class="summary-row">
+
+                <span>
+                    Email
+                </span>
+
+                <strong>
+                    —
+                </strong>
+
+            </div>
+
+            <div class="summary-row">
+
+                <span>
+                    Phone
+                </span>
+
+                <strong>
+                    —
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="summary-box">
+
+            <div class="summary-row">
+
+                <span>
+                    Account Status
+                </span>
+
+                <strong>
+                    Active
+                </strong>
+
+            </div>
+
+            <div class="summary-row">
+
+                <span>
+                    Member Since
+                </span>
+
+                <strong>
+                    —
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SUPPORT -->
+
+<section class="section" id="support">
+
+    <div class="section-header">
+
+        <h2>
+            Customer Service
+        </h2>
+
+    </div>
+
+    <p style="color:#8995a1;font-size:14px;margin-bottom:18px;">
+        Customer support options will be available here.
+    </p>
+
+    <button
+        class="service-btn"
+        onclick="contactSupport()">
+        Contact Customer Service
+    </button>
+
+</section>
+
+
+</main>
+
+</div>
+
+
+<script>
+
+/*
+==========================================
+ELYVION DASHBOARD DATA
+==========================================
+
+These values are demo defaults.
+
+Later Firebase will provide the real values
+for each authenticated user.
+
+Admin-controlled fields will include:
+
+balance
+todayIncome
+completedTasks
+completedSets
+currentSet
+totalTasks
+
+*/
+
+const dashboardData = {
+
+    balance: 0,
+
+    todayIncome: 0,
+
+    completedTasks: 0,
+
+    totalTasks: 90,
+
+    completedSets: 0,
+
+    totalSets: 3,
+
+    currentSet: 1
+
+};
+
+
+/* UPDATE DASHBOARD */
+
+function updateDashboard(data){
+
+    document.getElementById("balance")
+        .innerText =
+        "€" + Number(data.balance).toFixed(2);
+
+    document.getElementById("todayIncome")
+        .innerText =
+        "€" + Number(data.todayIncome).toFixed(2);
+
+    document.getElementById("completedTasks")
+        .innerText =
+        data.completedTasks;
+
+    document.getElementById("totalTasks")
+        .innerText =
+        data.totalTasks;
+
+    document.getElementById("completedSets")
+        .innerText =
+        data.completedSets;
+
+}
+
+
+/* INITIAL DATA */
+
+updateDashboard(dashboardData);
+
+
+/* CUSTOMER SERVICE */
+
+function contactSupport(){
+
+    alert(
+        "Customer Service will be connected here."
+    );
+
+}
+
+</script>
+
+</body>
+</html>
