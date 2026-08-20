@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Elyvion | Login</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:#070b12;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.login-container{
+    width:100%;
+    max-width:450px;
+}
+
+.login-box{
+    background:#0d141d;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 25px 80px rgba(0,0,0,.45);
+}
+
+.logo{
+    text-align:center;
+    font-size:32px;
+    font-weight:800;
+    letter-spacing:1px;
+    margin-bottom:8px;
+}
+
+.logo span{
+    color:#45e6a8;
+}
+
+.subtitle{
+    text-align:center;
+    color:#8995a1;
+    font-size:14px;
+    margin-bottom:30px;
+}
+
+.form-group{
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    color:#dce3e9;
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+.password-wrap{
+    position:relative;
+}
+
+input{
+    width:100%;
+    padding:14px 45px 14px 15px;
+    border-radius:9px;
+    border:1px solid #27333f;
+    background:#080d14;
+    color:#fff;
+    outline:none;
+    font-size:15px;
+    transition:.3s;
+}
+
+input:focus{
+    border-color:#45e6a8;
+    box-shadow:0 0 0 3px rgba(69,230,168,.08);
+}
+
+input::placeholder{
+    color:#5e6a76;
+}
+
+.show-password{
+    position:absolute;
+    right:14px;
+    top:50%;
+    transform:translateY(-50%);
+    cursor:pointer;
+    color:#7b8793;
+    font-size:14px;
+    user-select:none;
+}
+
+.show-password:hover{
+    color:#45e6a8;
+}
+
+.login-options{
+    display:flex;
+    justify-content:flex-end;
+    margin-top:-7px;
+    margin-bottom:20px;
+}
+
+.forgot{
+    color:#45e6a8;
+    text-decoration:none;
+    font-size:13px;
+}
+
+.login-btn{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:9px;
+    background:#45e6a8;
+    color:#071019;
+    font-size:16px;
+    font-weight:800;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.login-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 30px rgba(69,230,168,.22);
+}
+
+.message{
+    display:none;
+    padding:12px;
+    margin-bottom:18px;
+    border-radius:8px;
+    background:rgba(69,230,168,.08);
+    border:1px solid rgba(69,230,168,.2);
+    color:#45e6a8;
+    text-align:center;
+    font-size:13px;
+}
+
+.register-text{
+    text-align:center;
+    color:#8995a1;
+    margin-top:22px;
+    font-size:14px;
+}
+
+.register-text a{
+    color:#45e6a8;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.home-link{
+    display:block;
+    text-align:center;
+    margin-top:18px;
+    color:#687582;
+    text-decoration:none;
+    font-size:13px;
+}
+
+.home-link:hover{
+    color:#45e6a8;
+}
+
+@media(max-width:500px){
+
+    body{
+        padding:15px;
+    }
+
+    .login-box{
+        padding:25px 20px;
+    }
+
+    .logo{
+        font-size:28px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-container">
+
+<div class="login-box">
+
+    <div class="logo">
+        Ely<span>vion</span>
+    </div>
+
+    <div class="subtitle">
+        Login to your account
+    </div>
+
+    <div class="message" id="message"></div>
+
+    <form id="loginForm">
+
+        <!-- EMAIL -->
+
+        <div class="form-group">
+
+            <label for="email">
+                Email Address
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                autocomplete="email"
+                required
+            >
+
+        </div>
+
+
+        <!-- PASSWORD -->
+
+        <div class="form-group">
+
+            <label for="password">
+                Password
+            </label>
+
+            <div class="password-wrap">
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+
+                <span
+                    class="show-password"
+                    id="togglePassword">
+                    Show
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- FORGOT PASSWORD -->
+
+        <div class="login-options">
+
+            <a href="#" class="forgot" id="forgotPassword">
+                Forgot Password?
+            </a>
+
+        </div>
+
+
+        <!-- LOGIN -->
+
+        <button
+            type="submit"
+            class="login-btn"
+            id="loginBtn">
+            Login
+        </button>
+
+    </form>
+
+
+    <div class="register-text">
+
+        Don't have an account?
+
+        <a href="register.html">
+            Create Account
+        </a>
+
+    </div>
+
+
+    <a href="index.html" class="home-link">
+        ← Back to Home
+    </a>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* SHOW / HIDE PASSWORD */
+
+const passwordInput =
+    document.getElementById("password");
+
+const togglePassword =
+    document.getElementById("togglePassword");
+
+
+togglePassword.addEventListener("click",function(){
+
+    if(passwordInput.type === "password"){
+
+        passwordInput.type = "text";
+
+        togglePassword.innerText = "Hide";
+
+    }else{
+
+        passwordInput.type = "password";
+
+        togglePassword.innerText = "Show";
+
+    }
+
+});
+
+
+/* LOGIN FORM */
+
+const loginForm =
+    document.getElementById("loginForm");
+
+const message =
+    document.getElementById("message");
+
+const loginBtn =
+    document.getElementById("loginBtn");
+
+
+loginForm.addEventListener("submit",function(e){
+
+    e.preventDefault();
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+
+    if(password.length < 6){
+
+        showMessage(
+            "Password must contain at least 6 characters."
+        );
+
+        return;
+    }
+
+
+    /*
+       TEMPORARY FRONTEND VERSION
+
+       Firebase Authentication will be connected
+       after the Login + Register UI is completed.
+    */
+
+
+    console.log("Login:",{
+        email:email
+    });
+
+
+    loginBtn.innerText = "Logging in...";
+
+
+    setTimeout(function(){
+
+        loginBtn.innerText = "Login";
+
+        showMessage(
+            "Login system is ready. Firebase authentication will be connected next."
+        );
+
+    },700);
+
+});
+
+
+/* FORGOT PASSWORD */
+
+document
+.getElementById("forgotPassword")
+.addEventListener("click",function(e){
+
+    e.preventDefault();
+
+    showMessage(
+        "Password reset will be available after Firebase is connected."
+    );
+
+});
+
+
+/* MESSAGE */
+
+function showMessage(text){
+
+    message.innerText = text;
+
+    message.style.display = "block";
+
+}
+
+</script>
+
+</body>
+</html>
