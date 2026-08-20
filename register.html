@@ -1,1 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Elyvion | Register</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:#070b12;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:25px;
+}
+
+.register-container{
+    width:100%;
+    max-width:470px;
+}
+
+.register-box{
+    background:#0d141d;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 25px 80px rgba(0,0,0,.45);
+}
+
+.logo{
+    text-align:center;
+    font-size:32px;
+    font-weight:800;
+    letter-spacing:1px;
+    margin-bottom:8px;
+}
+
+.logo span{
+    color:#45e6a8;
+}
+
+.subtitle{
+    text-align:center;
+    color:#8995a1;
+    font-size:14px;
+    margin-bottom:30px;
+}
+
+.form-group{
+    margin-bottom:17px;
+}
+
+label{
+    display:block;
+    color:#dce3e9;
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+input{
+    width:100%;
+    padding:14px 15px;
+    border-radius:9px;
+    border:1px solid #27333f;
+    background:#080d14;
+    color:#fff;
+    outline:none;
+    font-size:15px;
+    transition:.3s;
+}
+
+input:focus{
+    border-color:#45e6a8;
+    box-shadow:0 0 0 3px rgba(69,230,168,.08);
+}
+
+input::placeholder{
+    color:#5e6a76;
+}
+
+.referral-help{
+    margin-top:7px;
+    color:#687582;
+    font-size:12px;
+}
+
+.register-btn{
+    width:100%;
+    border:none;
+    border-radius:9px;
+    padding:15px;
+    margin-top:5px;
+    background:#45e6a8;
+    color:#071019;
+    font-size:16px;
+    font-weight:800;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.register-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 30px rgba(69,230,168,.22);
+}
+
+.message{
+    display:none;
+    padding:12px;
+    margin-bottom:18px;
+    border-radius:8px;
+    background:rgba(69,230,168,.08);
+    border:1px solid rgba(69,230,168,.2);
+    color:#45e6a8;
+    text-align:center;
+    font-size:13px;
+}
+
+.login-text{
+    text-align:center;
+    color:#8995a1;
+    margin-top:22px;
+    font-size:14px;
+}
+
+.login-text a{
+    color:#45e6a8;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.home-link{
+    display:block;
+    text-align:center;
+    margin-top:18px;
+    color:#687582;
+    text-decoration:none;
+    font-size:13px;
+}
+
+.home-link:hover{
+    color:#45e6a8;
+}
+
+.terms{
+    margin-top:17px;
+    color:#687582;
+    font-size:11px;
+    text-align:center;
+    line-height:1.5;
+}
+
+@media(max-width:500px){
+
+    body{
+        padding:15px;
+    }
+
+    .register-box{
+        padding:25px 20px;
+    }
+
+    .logo{
+        font-size:28px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="register-container">
+
+<div class="register-box">
+
+    <div class="logo">
+        Ely<span>vion</span>
+    </div>
+
+    <div class="subtitle">
+        Create your Elyvion account
+    </div>
+
+
+    <div class="message" id="message"></div>
+
+
+    <form id="registerForm">
+
+        <!-- FULL NAME -->
+
+        <div class="form-group">
+
+            <label for="name">
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                placeholder="Enter your full name"
+                autocomplete="name"
+                required
+            >
+
+        </div>
+
+
+        <!-- EMAIL -->
+
+        <div class="form-group">
+
+            <label for="email">
+                Email Address
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                autocomplete="email"
+                required
+            >
+
+        </div>
+
+
+        <!-- PHONE -->
+
+        <div class="form-group">
+
+            <label for="phone">
+                Phone Number
+            </label>
+
+            <input
+                type="tel"
+                id="phone"
+                placeholder="Enter your phone number"
+                autocomplete="tel"
+                required
+            >
+
+        </div>
+
+
+        <!-- PASSWORD -->
+
+        <div class="form-group">
+
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Create a password"
+                minlength="6"
+                autocomplete="new-password"
+                required
+            >
+
+        </div>
+
+
+        <!-- CONFIRM PASSWORD -->
+
+        <div class="form-group">
+
+            <label for="confirmPassword">
+                Confirm Password
+            </label>
+
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm your password"
+                minlength="6"
+                autocomplete="new-password"
+                required
+            >
+
+        </div>
+
+
+        <!-- REFERRAL CODE -->
+
+        <div class="form-group">
+
+            <label for="referralCode">
+                Referral Code
+                <span style="color:#687582;font-weight:normal;">
+                    (Optional)
+                </span>
+            </label>
+
+            <input
+                type="text"
+                id="referralCode"
+                placeholder="Enter referral code"
+                maxlength="30"
+                autocomplete="off"
+            >
+
+            <div class="referral-help">
+                If someone invited you, enter their referral code here.
+            </div>
+
+        </div>
+
+
+        <!-- REGISTER BUTTON -->
+
+        <button
+            type="submit"
+            class="register-btn"
+            id="registerBtn"
+        >
+            Create Account
+        </button>
+
+    </form>
+
+
+    <div class="terms">
+        By creating an account, you agree to the platform's
+        terms and conditions.
+    </div>
+
+
+    <div class="login-text">
+
+        Already have an account?
+
+        <a href="login.html">
+            Login
+        </a>
+
+    </div>
+
+
+    <a href="index.html" class="home-link">
+        ← Back to Home
+    </a>
+
+</div>
+
+</div>
+
+
+<script>
+
+const form = document.getElementById("registerForm");
+
+const message = document.getElementById("message");
+
+const registerBtn = document.getElementById("registerBtn");
+
+
+form.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+
+    const name =
+        document.getElementById("name").value.trim();
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const phone =
+        document.getElementById("phone").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+    const referralCode =
+        document.getElementById("referralCode").value.trim();
+
+
+    /* PASSWORD CHECK */
+
+    if(password.length < 6){
+
+        showMessage(
+            "Password must contain at least 6 characters."
+        );
+
+        return;
+    }
+
+
+    /* CONFIRM PASSWORD CHECK */
+
+    if(password !== confirmPassword){
+
+        showMessage(
+            "Passwords do not match."
+        );
+
+        return;
+    }
+
+
+    /*
+       TEMPORARY FRONTEND VERSION
+
+       Firebase Authentication + Firestore
+       will be connected in the next step.
+    */
+
+    const registrationData = {
+
+        name:name,
+
+        email:email,
+
+        phone:phone,
+
+        referralCode:referralCode
+
+    };
+
+
+    console.log(
+        "Registration data:",
+        registrationData
+    );
+
+
+    registerBtn.innerText = "Processing...";
+
+
+    setTimeout(function(){
+
+        registerBtn.innerText = "Create Account";
+
+        showMessage(
+            "Registration form is ready. Account database will be connected next."
+        );
+
+    },700);
+
+});
+
+
+function showMessage(text){
+
+    message.innerText = text;
+
+    message.style.display = "block";
+
+}
+
+</script>
+
+</body>
+</html>
