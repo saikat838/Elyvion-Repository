@@ -89,12 +89,6 @@ input::placeholder{
     color:#5e6a76;
 }
 
-.referral-help{
-    margin-top:7px;
-    color:#687582;
-    font-size:12px;
-}
-
 .register-btn{
     width:100%;
     border:none;
@@ -120,6 +114,7 @@ input::placeholder{
     border-radius:8px;
     text-align:center;
     font-size:13px;
+    line-height:1.5;
 }
 
 .message.success{
@@ -156,10 +151,6 @@ input::placeholder{
     color:#687582;
     text-decoration:none;
     font-size:13px;
-}
-
-.home-link:hover{
-    color:#45e6a8;
 }
 
 .terms{
@@ -217,7 +208,6 @@ input::placeholder{
                 type="text"
                 id="name"
                 placeholder="Enter your full name"
-                autocomplete="name"
                 required
             >
 
@@ -234,7 +224,6 @@ input::placeholder{
                 type="email"
                 id="email"
                 placeholder="Enter your email"
-                autocomplete="email"
                 required
             >
 
@@ -251,7 +240,6 @@ input::placeholder{
                 type="tel"
                 id="phone"
                 placeholder="Enter your phone number"
-                autocomplete="tel"
                 required
             >
 
@@ -269,7 +257,6 @@ input::placeholder{
                 id="password"
                 placeholder="Create a password"
                 minlength="6"
-                autocomplete="new-password"
                 required
             >
 
@@ -287,7 +274,6 @@ input::placeholder{
                 id="confirmPassword"
                 placeholder="Confirm your password"
                 minlength="6"
-                autocomplete="new-password"
                 required
             >
 
@@ -308,12 +294,7 @@ input::placeholder{
                 id="referralCode"
                 placeholder="Enter referral code"
                 maxlength="30"
-                autocomplete="off"
             >
-
-            <div class="referral-help">
-                If someone invited you, enter their referral code here.
-            </div>
 
         </div>
 
@@ -358,16 +339,13 @@ input::placeholder{
 
 <script type="module">
 
-/* FIREBASE */
-
 import {
     initializeApp
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 import {
     getAuth,
-    createUserWithEmailAndPassword,
-    updateProfile
+    createUserWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
 import {
@@ -382,7 +360,8 @@ import {
 
 const firebaseConfig = {
 
-    apiKey: "AIzaSyCv975i2mxLOzMEITVdXPeJfUV9C_0Lqeo",
+    apiKey:
+        "AIzaSyCv975i2mxLOzMEITVdXPeJfUV9C_0Lqeo",
 
     authDomain:
         "elyvion.firebaseapp.com",
@@ -431,219 +410,174 @@ const registerBtn =
 
 /* REGISTER */
 
-form.addEventListener("submit", async function(e){
+form.addEventListener(
+    "submit",
+    async function(e){
 
-    e.preventDefault();
-
-
-    const name =
-        document.getElementById("name")
-        .value
-        .trim();
+        e.preventDefault();
 
 
-    const email =
-        document.getElementById("email")
-        .value
-        .trim();
+        const name =
+            document
+            .getElementById("name")
+            .value
+            .trim();
+
+        const email =
+            document
+            .getElementById("email")
+            .value
+            .trim();
+
+        const phone =
+            document
+            .getElementById("phone")
+            .value
+            .trim();
+
+        const password =
+            document
+            .getElementById("password")
+            .value;
+
+        const confirmPassword =
+            document
+            .getElementById("confirmPassword")
+            .value;
+
+        const referralCode =
+            document
+            .getElementById("referralCode")
+            .value
+            .trim();
 
 
-    const phone =
-        document.getElementById("phone")
-        .value
-        .trim();
+        /* CHECK PASSWORD */
+
+        if(password.length < 6){
+
+            showMessage(
+                "Password must contain at least 6 characters.",
+                "error"
+            );
+
+            return;
+        }
 
 
-    const password =
-        document.getElementById("password")
-        .value;
+        /* CONFIRM PASSWORD */
+
+        if(password !== confirmPassword){
+
+            showMessage(
+                "Passwords do not match.",
+                "error"
+            );
+
+            return;
+        }
 
 
-    const confirmPassword =
-        document.getElementById("confirmPassword")
-        .value;
+        registerBtn.disabled = true;
+
+        registerBtn.innerText =
+            "Creating Account...";
 
 
-    const referralCode =
-        document.getElementById("referralCode")
-        .value
-        .trim();
+        try{
+
+            /* CREATE AUTH ACCOUNT */
+
+            const userCredential =
+                await createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
 
 
-    /* VALIDATION */
-
-    if(password.length < 6){
-
-        showMessage(
-            "Password must contain at least 6 characters.",
-            "error"
-        );
-
-        return;
-    }
+            const user =
+                userCredential.user;
 
 
-    if(password !== confirmPassword){
+            /* SAVE USER PROFILE */
 
-        showMessage(
-            "Passwords do not match.",
-            "error"
-        );
+            await setDoc(
+                doc(db,"users",user.uid),
+                {
 
-        return;
-    }
+                    uid:user.uid,
 
+                    name:name,
 
-    registerBtn.disabled = true;
+                    email:email,
 
-    registerBtn.innerText =
-        "Creating Account...";
+                    phone:phone,
 
+                    referralCode:referralCode,
 
-    try{
+                    accountStatus:"Active",
 
+                    createdAt:
+                        serverTimestamp()
 
-        /* CREATE AUTH USER */
-
-        const userCredential =
-            await createUserWithEmailAndPassword(
-                auth,
-                email,
-                password
+                }
             );
 
 
-        const user =
-            userCredential.user;
+            showMessage(
+                "Account created successfully. Redirecting to login...",
+                "success"
+            );
 
 
-        /* SET DISPLAY NAME */
+            setTimeout(
+                function(){
 
-        await updateProfile(
-            user,
-            {
-                displayName:name
-            }
-        );
+                    window.location.href =
+                        "login.html";
+
+                },
+                1200
+            );
 
 
-        /*
-        ========================================
-        CREATE USER FIRESTORE DOCUMENT
-        ========================================
-        */
+        }catch(error){
 
-        await setDoc(
-            doc(db,"users",user.uid),
-            {
+            console.error(error);
 
-                uid:user.uid,
 
-                name:name,
+            let errorMessage =
+                "Registration failed. Please try again.";
 
-                email:email,
 
-                phone:phone,
+            if(
+                error.code ===
+                "auth/email-already-in-use"
+            ){
 
-                referralCode:
-                    referralCode || "",
-
-                balance:0,
-
-                todayIncome:0,
-
-                totalEarned:0,
-
-                completedTasks:0,
-
-                completedSets:0,
-
-                totalTasks:90,
-
-                totalSets:3,
-
-                accountStatus:"active",
-
-                createdAt:
-                    serverTimestamp()
+                errorMessage =
+                    "Registration failed. Please try again.";
 
             }
-        );
 
 
-        /* SUCCESS */
-
-        showMessage(
-            "Account created successfully. Redirecting...",
-            "success"
-        );
+            showMessage(
+                errorMessage,
+                "error"
+            );
 
 
-        setTimeout(function(){
+            registerBtn.disabled =
+                false;
 
-            window.location.href =
-                "dashboard.html";
-
-        },1000);
-
-
-    }catch(error){
-
-        console.error(error);
-
-
-        let errorMessage =
-            "Registration failed. Please try again.";
-
-
-        if(error.code ===
-            "auth/email-already-in-use"){
-
-            errorMessage =
-                "This email is already registered.";
+            registerBtn.innerText =
+                "Create Account";
 
         }
-
-        else if(error.code ===
-            "auth/invalid-email"){
-
-            errorMessage =
-                "Please enter a valid email.";
-
-        }
-
-        else if(error.code ===
-            "auth/weak-password"){
-
-            errorMessage =
-                "Password is too weak.";
-
-        }
-
-        else if(error.code ===
-            "permission-denied"){
-
-            errorMessage =
-                "Database permission denied. Please check Firestore Rules.";
-
-        }
-
-
-        showMessage(
-            errorMessage,
-            "error"
-        );
-
-
-        registerBtn.disabled =
-            false;
-
-        registerBtn.innerText =
-            "Create Account";
 
     }
-
-});
+);
 
 
 /* MESSAGE */
