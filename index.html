@@ -1,1 +1,1360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Elyvion | Digital Work & Learning Platform</title>
+
+<meta name="description" content="Elyvion - A modern digital work and learning platform.">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#070b12;
+    color:#ffffff;
+    line-height:1.6;
+}
+
+/* HEADER */
+
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:999;
+    background:rgba(7,11,18,.92);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.navbar{
+    max-width:1200px;
+    margin:auto;
+    padding:18px 25px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+.logo span{
+    color:#45e6a8;
+}
+
+.nav-links{
+    display:flex;
+    gap:27px;
+    list-style:none;
+}
+
+.nav-links a{
+    color:#d9e1e8;
+    text-decoration:none;
+    font-size:14px;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#45e6a8;
+}
+
+.nav-buttons{
+    display:flex;
+    gap:10px;
+}
+
+.btn{
+    display:inline-block;
+    text-decoration:none;
+    padding:11px 20px;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:700;
+    transition:.3s;
+}
+
+.btn-login{
+    color:#45e6a8;
+    border:1px solid #45e6a8;
+}
+
+.btn-login:hover{
+    background:#45e6a8;
+    color:#071019;
+}
+
+.btn-primary{
+    background:#45e6a8;
+    color:#071019;
+}
+
+.btn-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 30px rgba(69,230,168,.25);
+}
+
+.menu{
+    display:none;
+    font-size:27px;
+}
+
+/* HERO */
+
+.hero{
+    min-height:100vh;
+    padding:150px 25px 80px;
+    display:flex;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero:before{
+    content:"";
+    position:absolute;
+    width:500px;
+    height:500px;
+    right:-180px;
+    top:100px;
+    background:#45e6a8;
+    opacity:.08;
+    filter:blur(100px);
+    border-radius:50%;
+}
+
+.hero-container{
+    max-width:1200px;
+    width:100%;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:60px;
+    align-items:center;
+}
+
+.badge{
+    display:inline-block;
+    padding:8px 15px;
+    border:1px solid rgba(69,230,168,.3);
+    background:rgba(69,230,168,.07);
+    color:#45e6a8;
+    border-radius:30px;
+    font-size:12px;
+    margin-bottom:22px;
+}
+
+.hero h1{
+    font-size:64px;
+    line-height:1.08;
+    letter-spacing:-2px;
+    margin-bottom:25px;
+}
+
+.hero h1 span{
+    color:#45e6a8;
+}
+
+.hero p{
+    max-width:620px;
+    color:#9ba7b3;
+    font-size:18px;
+    margin-bottom:30px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+}
+
+.btn-large{
+    padding:15px 28px;
+}
+
+.btn-outline{
+    color:#fff;
+    border:1px solid #27333f;
+}
+
+.btn-outline:hover{
+    border-color:#45e6a8;
+    color:#45e6a8;
+}
+
+/* DASHBOARD PREVIEW */
+
+.preview{
+    background:linear-gradient(145deg,#111a24,#0b1119);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:22px;
+    padding:28px;
+    box-shadow:0 25px 80px rgba(0,0,0,.4);
+}
+
+.preview-header{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:25px;
+}
+
+.active{
+    color:#45e6a8;
+    font-size:13px;
+}
+
+.balance{
+    background:#080d14;
+    padding:24px;
+    border-radius:15px;
+    margin-bottom:15px;
+}
+
+.balance small{
+    color:#7d8995;
+}
+
+.balance h2{
+    font-size:38px;
+    margin-top:5px;
+}
+
+.preview-stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.stat{
+    background:#080d14;
+    border-radius:13px;
+    padding:20px;
+}
+
+.stat small{
+    color:#778491;
+}
+
+.stat strong{
+    display:block;
+    font-size:21px;
+    margin-top:5px;
+}
+
+/* GENERAL */
+
+section{
+    padding:100px 25px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+.section-title{
+    text-align:center;
+    max-width:700px;
+    margin:0 auto 55px;
+}
+
+.section-title span{
+    color:#45e6a8;
+    font-size:13px;
+    font-weight:bold;
+    text-transform:uppercase;
+    letter-spacing:2px;
+}
+
+.section-title h2{
+    font-size:42px;
+    margin:12px 0;
+}
+
+.section-title p{
+    color:#8995a1;
+}
+
+/* FEATURES */
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.feature{
+    background:#0d141d;
+    border:1px solid rgba(255,255,255,.07);
+    padding:30px;
+    border-radius:16px;
+    transition:.3s;
+}
+
+.feature:hover{
+    transform:translateY(-6px);
+    border-color:rgba(69,230,168,.3);
+}
+
+.icon{
+    width:52px;
+    height:52px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:12px;
+    background:rgba(69,230,168,.1);
+    color:#45e6a8;
+    font-size:23px;
+    margin-bottom:20px;
+}
+
+.feature h3{
+    margin-bottom:10px;
+}
+
+.feature p{
+    color:#8995a1;
+    font-size:14px;
+}
+
+/* HOW */
+
+.steps{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+
+.step{
+    text-align:center;
+    padding:30px;
+}
+
+.step-number{
+    width:55px;
+    height:55px;
+    margin:0 auto 20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:50%;
+    background:#45e6a8;
+    color:#071019;
+    font-weight:800;
+}
+
+.step h3{
+    margin-bottom:10px;
+}
+
+.step p{
+    color:#8995a1;
+    font-size:14px;
+}
+
+/* ABOUT */
+
+.about{
+    background:#0a1018;
+}
+
+.about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:center;
+}
+
+.about-text h2{
+    font-size:42px;
+    margin:12px 0 20px;
+}
+
+.about-text p{
+    color:#8e99a5;
+    margin-bottom:25px;
+}
+
+.about-box{
+    background:#101923;
+    border:1px solid rgba(255,255,255,.07);
+    padding:40px;
+    border-radius:20px;
+}
+
+.about-box h3{
+    font-size:27px;
+    margin-bottom:15px;
+}
+
+.about-box p{
+    color:#8995a1;
+}
+
+.check{
+    margin-top:15px;
+    color:#dce3e9;
+}
+
+.check span{
+    color:#45e6a8;
+    margin-right:8px;
+}
+
+/* CTA */
+
+.cta{
+    padding:80px 25px;
+}
+
+.cta-box{
+    max-width:1100px;
+    margin:auto;
+    text-align:center;
+    padding:70px 30px;
+    border-radius:25px;
+    background:linear-gradient(135deg,#101c25,#0d151e);
+    border:1px solid rgba(69,230,168,.18);
+}
+
+.cta-box h2{
+    font-size:42px;
+    margin-bottom:15px;
+}
+
+.cta-box p{
+    color:#8995a1;
+    max-width:650px;
+    margin:0 auto 28px;
+}
+
+/* FAQ */
+
+.faq{
+    max-width:800px;
+    margin:auto;
+}
+
+details{
+    background:#0d141d;
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:12px;
+    margin-bottom:12px;
+    padding:20px;
+}
+
+summary{
+    cursor:pointer;
+    font-weight:bold;
+}
+
+details p{
+    color:#8995a1;
+    margin-top:15px;
+    font-size:14px;
+}
+
+/* CONTACT */
+
+.contact-cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+/* FOOTER */
+
+footer{
+    background:#05080d;
+    padding:60px 25px 25px;
+    border-top:1px solid rgba(255,255,255,.06);
+}
+
+.footer-grid{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:40px;
+}
+
+.footer-brand p{
+    color:#7f8b97;
+    max-width:350px;
+    margin-top:15px;
+}
+
+.footer-col h4{
+    margin-bottom:17px;
+}
+
+.footer-col a{
+    display:block;
+    color:#7f8b97;
+    text-decoration:none;
+    margin:10px 0;
+    font-size:14px;
+}
+
+.footer-col a:hover{
+    color:#45e6a8;
+}
+
+.copyright{
+    max-width:1200px;
+    margin:40px auto 0;
+    padding-top:25px;
+    border-top:1px solid rgba(255,255,255,.06);
+    text-align:center;
+    color:#66727e;
+    font-size:13px;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+    .nav-links,
+    .nav-buttons{
+        display:none;
+    }
+
+    .menu{
+        display:block;
+    }
+
+    .hero-container,
+    .about-grid{
+        grid-template-columns:1fr;
+    }
+
+    .hero h1{
+        font-size:48px;
+    }
+
+    .features,
+    .steps,
+    .contact-cards{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:600px){
+
+    .navbar{
+        padding:15px 18px;
+    }
+
+    .hero{
+        padding:130px 18px 70px;
+    }
+
+    .hero h1{
+        font-size:40px;
+    }
+
+    .hero p{
+        font-size:16px;
+    }
+
+    section{
+        padding:75px 18px;
+    }
+
+    .section-title h2{
+        font-size:32px;
+    }
+
+    .features,
+    .steps,
+    .contact-cards,
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+
+    .cta-box h2{
+        font-size:32px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+<nav class="navbar">
+
+    <div class="logo">
+        Ely<span>vion</span>
+    </div>
+
+    <ul class="nav-links">
+
+        <li><a href="#home">Home</a></li>
+
+        <li><a href="#about">About</a></li>
+
+        <li><a href="#features">Features</a></li>
+
+        <li><a href="#how">How It Works</a></li>
+
+        <li><a href="#faq">FAQ</a></li>
+
+        <li><a href="#contact">Contact</a></li>
+
+    </ul>
+
+    <div class="nav-buttons">
+
+        <a href="login.html" class="btn btn-login">
+            Login
+        </a>
+
+        <a href="register.html" class="btn btn-primary">
+            Register
+        </a>
+
+    </div>
+
+    <div class="menu">
+        ☰
+    </div>
+
+</nav>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+<div class="hero-container">
+
+    <div>
+
+        <div class="badge">
+            ✦ DIGITAL WORK & LEARNING PLATFORM
+        </div>
+
+        <h1>
+            Learn. Work.
+            <span>Grow.</span>
+        </h1>
+
+        <p>
+            Welcome to Elyvion — a modern digital platform
+            designed to bring learning, activities and
+            opportunities together in one place.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="register.html"
+               class="btn btn-primary btn-large">
+                Get Started →
+            </a>
+
+            <a href="#how"
+               class="btn btn-outline btn-large">
+                Learn More
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="preview">
+
+        <div class="preview-header">
+
+            <strong>
+                Elyvion Dashboard
+            </strong>
+
+            <span class="active">
+                ● Active
+            </span>
+
+        </div>
+
+        <div class="balance">
+
+            <small>
+                Available Balance
+            </small>
+
+            <h2>
+                €0.00
+            </h2>
+
+        </div>
+
+        <div class="preview-stats">
+
+            <div class="stat">
+
+                <small>
+                    Tasks
+                </small>
+
+                <strong>
+                    0
+                </strong>
+
+            </div>
+
+            <div class="stat">
+
+                <small>
+                    Completed
+                </small>
+
+                <strong>
+                    0
+                </strong>
+
+            </div>
+
+            <div class="stat">
+
+                <small>
+                    Training
+                </small>
+
+                <strong>
+                    0%
+                </strong>
+
+            </div>
+
+            <div class="stat">
+
+                <small>
+                    Status
+                </small>
+
+                <strong>
+                    New
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section id="features">
+
+<div class="container">
+
+    <div class="section-title">
+
+        <span>Features</span>
+
+        <h2>
+            Everything In One Place
+        </h2>
+
+        <p>
+            A simple and modern platform experience
+            for registered users.
+        </p>
+
+    </div>
+
+
+    <div class="features">
+
+        <div class="feature">
+
+            <div class="icon">
+                🎓
+            </div>
+
+            <h3>
+                Training
+            </h3>
+
+            <p>
+                Access learning and training materials
+                from your account.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="icon">
+                ✓
+            </div>
+
+            <h3>
+                Daily Tasks
+            </h3>
+
+            <p>
+                View assigned activities through
+                your personal dashboard.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="icon">
+                €
+            </div>
+
+            <h3>
+                Earnings
+            </h3>
+
+            <p>
+                Track verified earnings and
+                activity history.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="icon">
+                📊
+            </div>
+
+            <h3>
+                Dashboard
+            </h3>
+
+            <p>
+                Manage your account and monitor
+                your progress.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="icon">
+                🔒
+            </div>
+
+            <h3>
+                Secure Account
+            </h3>
+
+            <p>
+                Secure authentication will protect
+                your account information.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="icon">
+                💬
+            </div>
+
+            <h3>
+                Support
+            </h3>
+
+            <p>
+                Get assistance whenever you need
+                help with the platform.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+
+<section id="how">
+
+<div class="container">
+
+    <div class="section-title">
+
+        <span>How It Works</span>
+
+        <h2>
+            Start In Three Steps
+        </h2>
+
+        <p>
+            A simple process for getting started.
+        </p>
+
+    </div>
+
+
+    <div class="steps">
+
+        <div class="step">
+
+            <div class="step-number">
+                01
+            </div>
+
+            <h3>
+                Create Account
+            </h3>
+
+            <p>
+                Register your account with
+                your basic information.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                02
+            </div>
+
+            <h3>
+                Complete Training
+            </h3>
+
+            <p>
+                Learn the platform process
+                through available training.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                03
+            </div>
+
+            <h3>
+                Start Activities
+            </h3>
+
+            <p>
+                Access available activities
+                from your account.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section class="about" id="about">
+
+<div class="container">
+
+    <div class="about-grid">
+
+        <div class="about-text">
+
+            <div class="section-title"
+                 style="text-align:left;margin:0;">
+
+                <span>
+                    About Elyvion
+                </span>
+
+                <h2>
+                    Built For A Simple Digital Experience
+                </h2>
+
+            </div>
+
+            <p>
+                Elyvion is designed to provide a clean
+                and easy-to-use platform where users can
+                access their account, training and activities.
+            </p>
+
+            <a href="register.html"
+               class="btn btn-primary">
+                Create Account →
+            </a>
+
+        </div>
+
+
+        <div class="about-box">
+
+            <h3>
+                Why Elyvion?
+            </h3>
+
+            <p>
+                Our platform focuses on simplicity,
+                transparency and an easy user experience.
+            </p>
+
+            <div class="check">
+                <span>✓</span>
+                Easy account management
+            </div>
+
+            <div class="check">
+                <span>✓</span>
+                Personal dashboard
+            </div>
+
+            <div class="check">
+                <span>✓</span>
+                Activity tracking
+            </div>
+
+            <div class="check">
+                <span>✓</span>
+                Support system
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- CTA -->
+
+<section class="cta">
+
+<div class="cta-box">
+
+    <h2>
+        Ready To Get Started?
+    </h2>
+
+    <p>
+        Create your Elyvion account and
+        explore the platform.
+    </p>
+
+    <a href="register.html"
+       class="btn btn-primary btn-large">
+        Register Now →
+    </a>
+
+</div>
+
+</section>
+
+
+<!-- FAQ -->
+
+<section id="faq">
+
+<div class="container">
+
+    <div class="section-title">
+
+        <span>
+            FAQ
+        </span>
+
+        <h2>
+            Frequently Asked Questions
+        </h2>
+
+    </div>
+
+
+    <div class="faq">
+
+        <details>
+
+            <summary>
+                What is Elyvion?
+            </summary>
+
+            <p>
+                Elyvion is a digital platform designed
+                around learning, activities and
+                account management.
+            </p>
+
+        </details>
+
+
+        <details>
+
+            <summary>
+                How can I create an account?
+            </summary>
+
+            <p>
+                Click the Register button and complete
+                the registration form.
+            </p>
+
+        </details>
+
+
+        <details>
+
+            <summary>
+                Where can I see my activities?
+            </summary>
+
+            <p>
+                Activities will be available inside
+                your personal dashboard after the
+                account system is connected.
+            </p>
+
+        </details>
+
+
+        <details>
+
+            <summary>
+                How can I contact support?
+            </summary>
+
+            <p>
+                You can use the support/contact
+                information provided on the platform.
+            </p>
+
+        </details>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section id="contact">
+
+<div class="container">
+
+    <div class="section-title">
+
+        <span>
+            Contact
+        </span>
+
+        <h2>
+            We're Here To Help
+        </h2>
+
+        <p>
+            Contact Elyvion support if you need assistance.
+        </p>
+
+    </div>
+
+
+    <div class="contact-cards">
+
+        <div class="feature">
+
+            <div class="icon">
+                ✉
+            </div>
+
+            <h3>
+                Email
+            </h3>
+
+            <p>
+                support@elyvion.com
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="icon">
+                💬
+            </div>
+
+            <h3>
+                Support
+            </h3>
+
+            <p>
+                Contact our support team.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="icon">
+                🌐
+            </div>
+
+            <h3>
+                Online
+            </h3>
+
+            <p>
+                Access the platform online.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<div class="footer-grid">
+
+    <div class="footer-brand">
+
+        <div class="logo">
+            Ely<span>vion</span>
+        </div>
+
+        <p>
+            A modern digital platform for learning,
+            activities and account management.
+        </p>
+
+    </div>
+
+
+    <div class="footer-col">
+
+        <h4>
+            Platform
+        </h4>
+
+        <a href="#home">
+            Home
+        </a>
+
+        <a href="#about">
+            About
+        </a>
+
+        <a href="#features">
+            Features
+        </a>
+
+        <a href="#how">
+            How It Works
+        </a>
+
+    </div>
+
+
+    <div class="footer-col">
+
+        <h4>
+            Account
+        </h4>
+
+        <a href="login.html">
+            Login
+        </a>
+
+        <a href="register.html">
+            Register
+        </a>
+
+    </div>
+
+
+    <div class="footer-col">
+
+        <h4>
+            Support
+        </h4>
+
+        <a href="#faq">
+            FAQ
+        </a>
+
+        <a href="#contact">
+            Contact
+        </a>
+
+    </div>
+
+</div>
+
+
+<div class="copyright">
+
+    © 2026 Elyvion. All rights reserved.
+
+</div>
+
+</footer>
+
+</body>
+</html>
