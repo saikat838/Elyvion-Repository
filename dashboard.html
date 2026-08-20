@@ -123,7 +123,7 @@ body{
 .main{
     flex:1;
     padding:35px;
-    max-width:1300px;
+    max-width:1350px;
     margin:auto;
     width:100%;
 }
@@ -218,94 +218,136 @@ body{
     font-size:12px;
 }
 
-/* SETS */
+/* TASK SET */
 
-.sets{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
-}
-
-.set{
+.task-set{
     background:#080d14;
     border:1px solid #202b36;
-    border-radius:13px;
+    border-radius:14px;
     padding:20px;
+    margin-bottom:18px;
 }
 
-.set.completed{
-    border-color:rgba(69,230,168,.35);
-}
-
-.set.locked{
-    opacity:.55;
-}
-
-.set-head{
+.task-set-header{
     display:flex;
     justify-content:space-between;
     align-items:center;
     margin-bottom:18px;
 }
 
-.set-name{
-    font-weight:700;
+.task-set-header h3{
+    font-size:17px;
+    margin-bottom:5px;
 }
 
-.set-status{
+.task-set-header p{
+    color:#697582;
     font-size:12px;
-    color:#7e8a96;
 }
 
-.set.completed .set-status{
+.set-progress{
+    color:#45e6a8;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.task-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+/* TASK CARD */
+
+.task-card{
+    position:relative;
+    background:#0d141d;
+    border:1px solid #25313c;
+    border-radius:12px;
+    padding:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.task-card.special{
+    border-color:rgba(255,190,70,.45);
+}
+
+.special-label{
+    position:absolute;
+    top:0;
+    left:15px;
+    transform:translateY(-50%);
+    background:#ffbe46;
+    color:#171109;
+    font-size:10px;
+    font-weight:800;
+    padding:4px 8px;
+    border-radius:5px;
+}
+
+.task-number{
+    color:#65717d;
+    font-size:12px;
+    margin-bottom:5px;
+}
+
+.task-title{
+    font-size:14px;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+.task-reward{
+    color:#8995a1;
+    font-size:12px;
+}
+
+.task-reward strong{
     color:#45e6a8;
 }
 
-.progress-text{
-    display:flex;
-    justify-content:space-between;
-    color:#8995a1;
-    font-size:13px;
-    margin-bottom:9px;
+.task-card.special .task-reward strong{
+    color:#ffbe46;
 }
 
-.progress-bar{
-    width:100%;
-    height:7px;
-    background:#18212b;
-    border-radius:10px;
-    overflow:hidden;
-}
-
-.progress-fill{
-    height:100%;
-    background:#45e6a8;
-    border-radius:10px;
-}
-
-.set-footer{
-    margin-top:18px;
-}
-
-.service-btn{
-    width:100%;
-    padding:10px;
-    border:none;
+.task-btn{
+    border:0;
     border-radius:7px;
     background:#45e6a8;
     color:#071019;
+    padding:10px 17px;
     font-weight:700;
     cursor:pointer;
+    white-space:nowrap;
 }
 
-.disabled-btn{
-    width:100%;
-    padding:10px;
-    border:none;
-    border-radius:7px;
-    background:#18212b;
-    color:#596672;
-    cursor:not-allowed;
+.task-btn:hover{
+    transform:translateY(-1px);
+}
+
+.special-btn{
+    background:#ffbe46;
+}
+
+.task-btn.completed{
+    background:#1b2926;
+    color:#45e6a8;
+    cursor:default;
+}
+
+.locked-set{
+    opacity:.55;
+}
+
+.locked-message{
+    background:#0d141d;
+    border-radius:8px;
+    padding:13px;
+    color:#697582;
+    font-size:13px;
 }
 
 /* SUMMARY */
@@ -373,8 +415,21 @@ td{
     color:#b9c2ca;
 }
 
-.completed-text{
-    color:#45e6a8;
+/* SUPPORT */
+
+.service-btn{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#45e6a8;
+    color:#071019;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.service-btn:hover{
+    box-shadow:0 8px 25px rgba(69,230,168,.15);
 }
 
 /* MOBILE */
@@ -383,10 +438,6 @@ td{
 
     .cards{
         grid-template-columns:repeat(2,1fr);
-    }
-
-    .sets{
-        grid-template-columns:1fr;
     }
 
 }
@@ -426,6 +477,10 @@ td{
         grid-template-columns:1fr;
     }
 
+    .task-list{
+        grid-template-columns:1fr;
+    }
+
 }
 
 @media(max-width:480px){
@@ -436,6 +491,15 @@ td{
 
     .welcome h1{
         font-size:24px;
+    }
+
+    .task-card{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .task-btn{
+        width:100%;
     }
 
 }
@@ -469,7 +533,6 @@ td{
 
 
 <div class="layout">
-
 
 <!-- SIDEBAR -->
 
@@ -530,7 +593,6 @@ td{
 
 <main class="main">
 
-
 <!-- WELCOME -->
 
 <div class="welcome">
@@ -550,7 +612,6 @@ td{
 
 <div class="cards">
 
-
     <!-- BALANCE -->
 
     <div class="card">
@@ -567,8 +628,7 @@ td{
 
         </div>
 
-        <div class="card-value"
-             id="balance">
+        <div class="card-value" id="balance">
             €0.00
         </div>
 
@@ -595,8 +655,7 @@ td{
 
         </div>
 
-        <div class="card-value"
-             id="todayIncome">
+        <div class="card-value" id="todayIncome">
             €0.00
         </div>
 
@@ -630,6 +689,7 @@ td{
             </span>
 
             /
+
             <span id="totalTasks">
                 90
             </span>
@@ -695,156 +755,164 @@ td{
     </div>
 
 
-    <div class="sets">
+    <!-- SET 1 -->
 
+    <div class="task-set">
 
-        <!-- SET 1 -->
+        <div class="task-set-header">
 
-        <div class="set">
+            <div>
 
-            <div class="set-head">
-
-                <div class="set-name">
+                <h3>
                     Set 1
-                </div>
+                </h3>
 
-                <div class="set-status">
-                    Not Started
-                </div>
+                <p>
+                    30 Tasks
+                </p>
 
             </div>
 
-            <div class="progress-text">
-
-                <span>
-                    Progress
-                </span>
-
-                <span>
+            <div class="set-progress">
+                <span id="set1Progress">
                     0 / 30
                 </span>
-
             </div>
 
-            <div class="progress-bar">
+        </div>
 
-                <div
-                    class="progress-fill"
-                    style="width:0%">
+
+        <div class="task-list">
+
+            <!-- NORMAL TASK -->
+
+            <div class="task-card">
+
+                <div class="task-info">
+
+                    <div class="task-number">
+                        Task 01
+                    </div>
+
+                    <div class="task-title">
+                        Normal Task
+                    </div>
+
+                    <div class="task-reward">
+                        Reward:
+                        <strong>
+                            €0.50
+                        </strong>
+                    </div>
+
                 </div>
 
+                <button
+                    class="task-btn"
+                    onclick="completeTask(this,0.50)">
+                    Complete
+                </button>
+
             </div>
 
-            <div class="set-footer">
+
+            <!-- SPECIAL OFFER -->
+
+            <div class="task-card special">
+
+                <div class="special-label">
+                    🎁 SPECIAL OFFER
+                </div>
+
+                <div class="task-info">
+
+                    <div class="task-number">
+                        Task 02
+                    </div>
+
+                    <div class="task-title">
+                        Special Offer Task
+                    </div>
+
+                    <div class="task-reward">
+                        Reward:
+                        <strong>
+                            €1.50
+                        </strong>
+                    </div>
+
+                </div>
 
                 <button
-                    class="disabled-btn"
-                    disabled>
-                    Complete Tasks First
+                    class="task-btn special-btn"
+                    onclick="completeTask(this,1.50)">
+                    Complete
                 </button>
 
             </div>
 
         </div>
 
+    </div>
 
-        <!-- SET 2 -->
 
-        <div class="set locked">
+    <!-- SET 2 -->
 
-            <div class="set-head">
+    <div class="task-set locked-set">
 
-                <div class="set-name">
-                    Set 2
-                </div>
+        <div class="task-set-header">
 
-                <div class="set-status">
-                    🔒 Locked
-                </div>
+            <div>
 
-            </div>
+                <h3>
+                    Set 2 🔒
+                </h3>
 
-            <div class="progress-text">
-
-                <span>
-                    Progress
-                </span>
-
-                <span>
-                    0 / 30
-                </span>
+                <p>
+                    30 Tasks
+                </p>
 
             </div>
 
-            <div class="progress-bar">
-
-                <div
-                    class="progress-fill"
-                    style="width:0%">
-                </div>
-
-            </div>
-
-            <div class="set-footer">
-
-                <button
-                    class="disabled-btn"
-                    disabled>
-                    Complete Set 1 First
-                </button>
-
+            <div class="set-progress">
+                0 / 30
             </div>
 
         </div>
 
+        <div class="locked-message">
+            Complete Set 1 to unlock Set 2.
+        </div>
 
-        <!-- SET 3 -->
+    </div>
 
-        <div class="set locked">
 
-            <div class="set-head">
+    <!-- SET 3 -->
 
-                <div class="set-name">
-                    Set 3
-                </div>
+    <div class="task-set locked-set">
 
-                <div class="set-status">
-                    🔒 Locked
-                </div>
+        <div class="task-set-header">
 
-            </div>
+            <div>
 
-            <div class="progress-text">
+                <h3>
+                    Set 3 🔒
+                </h3>
 
-                <span>
-                    Progress
-                </span>
-
-                <span>
-                    0 / 30
-                </span>
+                <p>
+                    30 Tasks
+                </p>
 
             </div>
 
-            <div class="progress-bar">
-
-                <div
-                    class="progress-fill"
-                    style="width:0%">
-                </div>
-
+            <div class="set-progress">
+                0 / 30
             </div>
 
-            <div class="set-footer">
+        </div>
 
-                <button
-                    class="disabled-btn"
-                    disabled>
-                    Complete Set 2 First
-                </button>
-
-            </div>
-
+        <div class="locked-message">
+            Complete Set 2 to unlock Set 3.
         </div>
 
     </div>
@@ -875,17 +943,23 @@ td{
 
             <div class="summary-row">
                 <span>Total Balance</span>
-                <strong>€0.00</strong>
+                <strong id="walletBalance">
+                    €0.00
+                </strong>
             </div>
 
             <div class="summary-row">
                 <span>Today's Income</span>
-                <strong>€0.00</strong>
+                <strong id="walletTodayIncome">
+                    €0.00
+                </strong>
             </div>
 
             <div class="summary-row">
                 <span>Total Earned</span>
-                <strong>€0.00</strong>
+                <strong>
+                    €0.00
+                </strong>
             </div>
 
         </div>
@@ -899,17 +973,23 @@ td{
 
             <div class="summary-row">
                 <span>Total Withdrawn</span>
-                <strong>€0.00</strong>
+                <strong>
+                    €0.00
+                </strong>
             </div>
 
             <div class="summary-row">
                 <span>Pending</span>
-                <strong>€0.00</strong>
+                <strong>
+                    €0.00
+                </strong>
             </div>
 
             <div class="summary-row">
                 <span>Available</span>
-                <strong>€0.00</strong>
+                <strong>
+                    €0.00
+                </strong>
             </div>
 
         </div>
@@ -944,33 +1024,20 @@ td{
 
                 <tr>
 
-                    <th>
-                        Date
-                    </th>
-
-                    <th>
-                        Activity
-                    </th>
-
-                    <th>
-                        Amount
-                    </th>
-
-                    <th>
-                        Status
-                    </th>
+                    <th>Date</th>
+                    <th>Activity</th>
+                    <th>Amount</th>
+                    <th>Status</th>
 
                 </tr>
 
             </thead>
 
-            <tbody>
+            <tbody id="incomeHistory">
 
                 <tr>
 
-                    <td>
-                        —
-                    </td>
+                    <td>—</td>
 
                     <td>
                         No activity yet
@@ -1157,7 +1224,7 @@ td{
 </section>
 
 
-<!-- SUPPORT -->
+<!-- CUSTOMER SERVICE -->
 
 <section class="section" id="support">
 
@@ -1169,14 +1236,21 @@ td{
 
     </div>
 
-    <p style="color:#8995a1;font-size:14px;margin-bottom:18px;">
-        Customer support options will be available here.
+    <p style="
+        color:#8995a1;
+        font-size:14px;
+        margin-bottom:18px;
+    ">
+        Need help with your account or tasks?
+        Contact our customer service team.
     </p>
 
     <button
         class="service-btn"
         onclick="contactSupport()">
+
         Contact Customer Service
+
     </button>
 
 </section>
@@ -1190,23 +1264,22 @@ td{
 <script>
 
 /*
-==========================================
-ELYVION DASHBOARD DATA
-==========================================
+========================================
+DEMO DASHBOARD DATA
+========================================
 
-These values are demo defaults.
+Later these values will come from
+Firebase for the logged-in customer.
 
-Later Firebase will provide the real values
-for each authenticated user.
-
-Admin-controlled fields will include:
+Admin-controlled values can include:
 
 balance
 todayIncome
 completedTasks
 completedSets
-currentSet
-totalTasks
+task rewards
+special offers
+etc.
 
 */
 
@@ -1237,21 +1310,35 @@ function updateDashboard(data){
         .innerText =
         "€" + Number(data.balance).toFixed(2);
 
+
     document.getElementById("todayIncome")
         .innerText =
         "€" + Number(data.todayIncome).toFixed(2);
+
 
     document.getElementById("completedTasks")
         .innerText =
         data.completedTasks;
 
+
     document.getElementById("totalTasks")
         .innerText =
         data.totalTasks;
 
+
     document.getElementById("completedSets")
         .innerText =
         data.completedSets;
+
+
+    document.getElementById("walletBalance")
+        .innerText =
+        "€" + Number(data.balance).toFixed(2);
+
+
+    document.getElementById("walletTodayIncome")
+        .innerText =
+        "€" + Number(data.todayIncome).toFixed(2);
 
 }
 
@@ -1259,6 +1346,33 @@ function updateDashboard(data){
 /* INITIAL DATA */
 
 updateDashboard(dashboardData);
+
+
+/* COMPLETE TASK */
+
+function completeTask(button,reward){
+
+    if(button.classList.contains("completed")){
+        return;
+    }
+
+    button.innerText = "Completed ✓";
+
+    button.classList.add("completed");
+
+    /*
+    IMPORTANT:
+
+    This demo does NOT automatically credit
+    real money.
+
+    Firebase + secure server-side logic will
+    be connected later so task completion,
+    rewards and user balance are validated
+    before any balance update.
+    */
+
+}
 
 
 /* CUSTOMER SERVICE */
